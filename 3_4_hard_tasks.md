@@ -1,4 +1,5 @@
 ## Задача 2: Получение данных о гноме с навыками и назначениями
+
 Создайте запрос, который возвращает информацию о гноме, включая идентификаторы всех его навыков, текущих назначений, принадлежности к отрядам и используемого снаряжения.
 
 ```sql
@@ -14,9 +15,9 @@ select
             where ds.dwarf_id = d.dwarf_id
         ), '[]'::json),
         'assignment_ids', coalesce((
-            select json_agg(wc.workshop_id)
-            from workshop_craftsdwarves wc
-            where wc.dwarf_id = d.dwarf_id
+            select json_agg(da.assignment_id)
+            from dwarf_assignments da
+            where da.dwarf_id = d.dwarf_id
         ), '[]'::json),
         'squad_ids', coalesce((
             select json_agg(sm.squad_id)
@@ -101,12 +102,12 @@ select
             where so.squad_id = ms.squad_id
         ), '[]'::json),
         'training_schedule_ids', coalesce((
-            select json_agg(st.training_id)
+            select json_agg(st.schedule_id)
             from squad_training st
             where st.squad_id = ms.squad_id
         ), '[]'::json),
         'battle_report_ids', coalesce((
-            select json_agg(sb.battle_id)
+            select json_agg(sb.report_id)
             from squad_battles sb
             where sb.squad_id = ms.squad_id
         ), '[]'::json)
