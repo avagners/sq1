@@ -87,7 +87,6 @@ workshop_assignments as (
     join dwarves ds on wc.dwarf_id = ds.dwarf_id
     join current_dwarf_skills cds on wc.dwarf_id = cds.dwarf_id
     join skills s on cds.skill_id = s.skill_id
-    where s.name in ('Blacksmithing', 'Carpentry', 'Jewelry', 'Cooking')
 ),
 -- Расчет метрик производства
 production_metrics as (
